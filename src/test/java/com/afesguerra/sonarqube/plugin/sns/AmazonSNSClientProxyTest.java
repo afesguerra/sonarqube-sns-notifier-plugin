@@ -1,15 +1,21 @@
 package com.afesguerra.sonarqube.plugin.sns;
 
+import com.afesguerra.sonarqube.plugin.sns.sns.AmazonSNSClientProxy;
+import com.afesguerra.sonarqube.plugin.sns.sns.SonarPropertiesAWSCredentialsProvider;
 import com.amazonaws.services.sns.AmazonSNS;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.sonar.api.config.Settings;
+import org.sonar.api.config.Configuration;
 
-import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPluginConstants.AWS_SNS_ENDPOINT_KEY;
-import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPluginConstants.AWS_SNS_REGION_KEY;
+import javax.swing.text.html.Option;
+
+import java.util.Optional;
+
+import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_ENDPOINT_KEY;
+import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_REGION_KEY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +25,7 @@ public class AmazonSNSClientProxyTest {
     private static final String AWS_REGION = "eu-west-1";
 
     @Mock
-    private Settings settings;
+    private Configuration configuration;
 
     @Mock
     private SonarPropertiesAWSCredentialsProvider credentialsProvider;
@@ -28,13 +34,13 @@ public class AmazonSNSClientProxyTest {
 
     @Before
     public void setUp() throws Exception {
-        proxy = new AmazonSNSClientProxy(settings, credentialsProvider);
+        proxy = new AmazonSNSClientProxy(configuration, credentialsProvider);
     }
 
     @Test
     public void isSingleton() throws Exception {
-        when(settings.getString(AWS_SNS_REGION_KEY)).thenReturn(AWS_REGION);
-        when(settings.getString(AWS_SNS_ENDPOINT_KEY)).thenReturn(null);
+        when(configuration.get(AWS_SNS_REGION_KEY)).thenReturn(Optional.of(AWS_REGION));
+        when(configuration.get(AWS_SNS_ENDPOINT_KEY)).thenReturn(Optional.empty());
 
         final AmazonSNS sns1 = proxy.get();
         final AmazonSNS sns2 = proxy.get();

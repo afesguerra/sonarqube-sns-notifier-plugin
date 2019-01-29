@@ -27,7 +27,7 @@ public class OptionalSerializerTest {
     private StdSerializer<Optional> serializer;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         serializer = new OptionalSerializer();
     }
 
