@@ -16,6 +16,33 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <description>
+        Plugin to trigger AWS SNS notifications when an analysis is completed
+    </description>
+
+    <developers>
+        <developer>
+            <name>Andrés Felipe Esguerra Restrepo</name>
+            <url>https://github.com/afesguerra</url>
+        </developer>
+    </developers>
+
+    <ciManagement>
+        <system>travis</system>
+        <url>https://travis-ci.com/afesguerra/sonarqube-sns-notifier-plugin</url>
+    </ciManagement>
+
+    <scm>
+        <url>https://github.com/afesguerra/sonarqube-sns-notifier-plugin</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License 3.0</name>
+            <url>https://www.gnu.org/licenses/lgpl-3.0.en.html</url>
+        </license>
+    </licenses>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -27,14 +54,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <description>
-        Plugin to trigger AWS SNS notifications when an analysis is completed
-    </description>
-    <developers>
-        <developer>
-            <name>Andrés Felipe Esguerra Restrepo</name>
-        </developer>
-    </developers>
     <dependencies>
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -92,6 +111,19 @@
 
                     <!-- advanced properties can be set here. See paragraph "Advanced Build Properties". -->
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

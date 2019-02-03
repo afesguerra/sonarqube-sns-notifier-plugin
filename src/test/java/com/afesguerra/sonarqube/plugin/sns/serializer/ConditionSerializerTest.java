@@ -19,9 +19,9 @@ public class ConditionSerializerTest {
 
     private static final String METRIC_KEY = "LineCoverage";
     private static final String WARNING_THRESHOLD = "75";
-    public static final String ERROR_THRESHOLD = "70";
-    public static final boolean ON_LEAK_PERIOD = true;
-    public static final String VALUE = "80";
+    private static final String ERROR_THRESHOLD = "70";
+    private static final boolean ON_LEAK_PERIOD = true;
+    private static final String VALUE = "80";
 
     @Mock
     private QualityGate.Condition condition;
@@ -34,7 +34,7 @@ public class ConditionSerializerTest {
     private StdSerializer<QualityGate.Condition> serializer;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         serializer = new ConditionSerializer();
 
         when(condition.getStatus()).thenReturn(QualityGate.EvaluationStatus.OK);
