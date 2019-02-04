@@ -1,7 +1,5 @@
-package com.afesguerra.sonarqube.plugin.sns;
+package com.afesguerra.sonarqube.plugin.sns.sns;
 
-import com.afesguerra.sonarqube.plugin.sns.sns.AmazonSNSClientProxy;
-import com.afesguerra.sonarqube.plugin.sns.sns.SonarPropertiesAWSCredentialsProvider;
 import com.amazonaws.services.sns.AmazonSNS;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.sonar.api.config.Configuration;
-
-import javax.swing.text.html.Option;
 
 import java.util.Optional;
 
@@ -33,12 +29,12 @@ public class AmazonSNSClientProxyTest {
     private AmazonSNSClientProxy proxy;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         proxy = new AmazonSNSClientProxy(configuration, credentialsProvider);
     }
 
     @Test
-    public void isSingleton() throws Exception {
+    public void isSingleton() {
         when(configuration.get(AWS_SNS_REGION_KEY)).thenReturn(Optional.of(AWS_REGION));
         when(configuration.get(AWS_SNS_ENDPOINT_KEY)).thenReturn(Optional.empty());
 
