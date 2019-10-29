@@ -43,13 +43,13 @@ public class AmazonSNSClientProxy implements Supplier<AmazonSNS> {
     @Override
     public AmazonSNS get() {
         if (sns == null) {
-            createSNSClient();
+            sns = createSNSClient();
         }
 
         return sns;
     }
 
-    private void createSNSClient() {
+    private AmazonSNS createSNSClient() {
         log.debug("Creating SNS client");
 
         final AmazonSNSClientBuilder snsBuilder = AmazonSNSClientBuilder.standard().withCredentials(awsCredentialsProvider);
@@ -62,6 +62,6 @@ public class AmazonSNSClientProxy implements Supplier<AmazonSNS> {
             snsBuilder.withEndpointConfiguration(endpointConfiguration);
         });
 
-        sns = snsBuilder.build();
+        return snsBuilder.build();
     }
 }

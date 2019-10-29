@@ -20,8 +20,17 @@ import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_
 
 @Slf4j
 public class SNSNotificationTask implements PostProjectAnalysisTask {
+    private static final ObjectMapper OBJECT_MAPPER;
+
     private final Configuration configuration;
     private final Supplier<AmazonSNS> amazonSNSSupplier;
+
+    static {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(QualityGate.Condition.class, new ConditionSerializer());
+        module.addSerializer(Optional.class, new OptionalSerializer());
+        OBJECT_MAPPER = new ObjectMapper().registerModule(module);
+    }
 
     public SNSNotificationTask(Configuration configuration, AmazonSNSClientProxy amazonSNSSupplier) {
         this.configuration = configuration;
@@ -44,15 +53,8 @@ public class SNSNotificationTask implements PostProjectAnalysisTask {
     }
 
     private String getNotificationMessage(ProjectAnalysis projectAnalysis) {
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(QualityGate.Condition.class, new ConditionSerializer());
-        module.addSerializer(Optional.class, new OptionalSerializer());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(module);
-
         try {
-            return objectMapper.writeValueAsString(projectAnalysis);
+            return OBJECT_MAPPER.writeValueAsString(projectAnalysis);
         } catch (JsonProcessingException e) {
             throw new UncheckedIOException(e);
         }

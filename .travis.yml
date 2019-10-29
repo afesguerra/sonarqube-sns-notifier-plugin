@@ -1,3 +1,10 @@
 language: java
 jdk:
 - openjdk8
+addons:
+  sonarcloud:
+    organization: afesguerra-github
+    token:
+      secure: cPTlXy2ytvsNnUmieRM0mwiHMMKAGtFQnWZr1LifzgIbQcRgKw/FwQBvgDY1QL7pqv9g9DkCyLfdRP44QM/ZpiVEFSntqqRxzJcb0QDYpGT5ToqTf1CR2driHPMC+BytmApWpDEGvRUpzfBhgyVqptMvbMAeeXXQZx7qLtOlpkXWpN1YVEkT/9AHmSu4MkYesn33d/cuEYdhK/A7J8QUQLGlFU34Dq+FZ0EQfkUg3VU4iMXmUH+qNBdQCC/7HEZKn650L11c4KhuJckaiBTpif6kulyiZ0FdwY8FEeDrmTyFrGceZ+dZKpA/NYp+jq0TeccUMs/OgjKTh1PMN6p+FQzpPsuQXzgT3IsJ9LjDPCzjiDxzk8B+a09e/8hOlZkxodt2619UhoW6E+ieyzD0YExmxiGiOJBa+QXysnZ5QkGE5WeBjInXYfR6l0s4E4eWoPXK095eMxF0s8gqMB9K8LDjyN4ek9ED0OLNM33LHAwIN5wHKtpXg8D0sUVMAJELBO/ZnZEjAdu2/uaJpzuKwj1r9xu1i6Ao5Nz199Jl7slMTMH1zhfCgDE48+AEzq/Vk9zcxSgwKAHem94e7rS9T8Bi5VJ+b9ps5WSW5RqVXCJomQWzqtGmUyxkmIiBMwnuqK0o1/TID6KB4324M1Z/YhpZj3pPZ2yAK2Fp9LX51BM=
+after_script:
+- mvn sonar:sonar
