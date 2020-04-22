@@ -7,4 +7,4 @@ Plugin for SonarQube that allows to trigger SNS notifications after each Analysi
 
 # Requirements
 - AWS Credentials with publish permissions to SNS topic
-- SonarQube 6.7+
+- SonarQube 7.9+

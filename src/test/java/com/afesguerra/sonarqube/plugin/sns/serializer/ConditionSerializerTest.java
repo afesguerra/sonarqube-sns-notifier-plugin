@@ -3,18 +3,18 @@ package com.afesguerra.sonarqube.plugin.sns.serializer;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.sonar.api.ce.posttask.QualityGate;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ConditionSerializerTest {
 
     private static final String METRIC_KEY = "LineCoverage";
@@ -33,7 +33,7 @@ public class ConditionSerializerTest {
 
     private StdSerializer<QualityGate.Condition> serializer;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         serializer = new ConditionSerializer();
 
@@ -43,7 +43,6 @@ public class ConditionSerializerTest {
         when(condition.getWarningThreshold()).thenReturn(WARNING_THRESHOLD);
         when(condition.getErrorThreshold()).thenReturn(ERROR_THRESHOLD);
         when(condition.isOnLeakPeriod()).thenReturn(ON_LEAK_PERIOD);
-        when(condition.getValue()).thenReturn(VALUE);
     }
 
     @Test
@@ -56,6 +55,7 @@ public class ConditionSerializerTest {
 
     @Test
     public void testWithValue() throws Exception {
+        when(condition.getValue()).thenReturn(VALUE);
         serializer.serialize(condition, gen, serializerProvider);
         verify(condition).getValue();
     }

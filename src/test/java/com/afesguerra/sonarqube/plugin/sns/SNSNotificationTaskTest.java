@@ -2,11 +2,11 @@ package com.afesguerra.sonarqube.plugin.sns;
 
 import com.afesguerra.sonarqube.plugin.sns.sns.AmazonSNSClientProxy;
 import com.amazonaws.services.sns.AmazonSNS;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.sonar.api.ce.posttask.Branch;
 import org.sonar.api.ce.posttask.CeTask;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester;
@@ -27,7 +27,7 @@ import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newConditi
 import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newProjectBuilder;
 import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class SNSNotificationTaskTest {
 
     private static final String TOPIC = "topic";
@@ -42,7 +42,7 @@ public class SNSNotificationTaskTest {
     @Mock
     private AmazonSNSClientProxy snsProxy;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         when(snsProxy.get()).thenReturn(sns);
         when(configuration.get(AWS_SNS_TOPIC_ARN_KEY)).thenReturn(Optional.of(TOPIC));

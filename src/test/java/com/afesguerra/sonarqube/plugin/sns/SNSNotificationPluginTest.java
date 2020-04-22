@@ -1,7 +1,8 @@
 package com.afesguerra.sonarqube.plugin.sns;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.sonar.api.Plugin;
+import org.sonar.api.SonarEdition;
 import org.sonar.api.SonarQubeSide;
 import org.sonar.api.SonarRuntime;
 import org.sonar.api.internal.SonarRuntimeImpl;
@@ -16,7 +17,8 @@ public class SNSNotificationPluginTest {
 
     @Test
     public void testDefine() {
-        SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(Version.create(6, 7), SonarQubeSide.COMPUTE_ENGINE);
+        Version version = Version.create(7, 9);
+        SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(version, SonarQubeSide.COMPUTE_ENGINE, SonarEdition.COMMUNITY);
         Plugin.Context context = new Plugin.Context(runtime);
         plugin.define(context);
         assertThat(context.getExtensions()).hasSize(8);
