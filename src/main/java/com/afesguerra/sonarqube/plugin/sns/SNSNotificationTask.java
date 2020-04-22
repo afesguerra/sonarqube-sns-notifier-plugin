@@ -1,19 +1,18 @@
 package com.afesguerra.sonarqube.plugin.sns;
 
 import com.afesguerra.sonarqube.plugin.sns.serializer.ConditionSerializer;
-import com.afesguerra.sonarqube.plugin.sns.serializer.OptionalSerializer;
 import com.afesguerra.sonarqube.plugin.sns.sns.AmazonSNSClientProxy;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import lombok.extern.slf4j.Slf4j;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.QualityGate;
 import org.sonar.api.config.Configuration;
 
 import java.io.UncheckedIOException;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_TOPIC_ARN_KEY;
@@ -28,8 +27,9 @@ public class SNSNotificationTask implements PostProjectAnalysisTask {
     static {
         SimpleModule module = new SimpleModule();
         module.addSerializer(QualityGate.Condition.class, new ConditionSerializer());
-        module.addSerializer(Optional.class, new OptionalSerializer());
-        OBJECT_MAPPER = new ObjectMapper().registerModule(module);
+        OBJECT_MAPPER = new ObjectMapper()
+                .registerModule(module)
+                .registerModule(new Jdk8Module());
     }
 
     public SNSNotificationTask(Configuration configuration, AmazonSNSClientProxy amazonSNSSupplier) {
