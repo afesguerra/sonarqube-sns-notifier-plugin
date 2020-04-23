@@ -9,10 +9,11 @@ import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.sns.AmazonSNS;
 import com.amazonaws.services.sns.AmazonSNSClientBuilder;
-import lombok.extern.slf4j.Slf4j;
 import org.sonar.api.ExtensionPoint;
 import org.sonar.api.ce.ComputeEngineSide;
 import org.sonar.api.config.Configuration;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import java.util.function.Supplier;
 
@@ -20,10 +21,10 @@ import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_
 import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_REGION_KEY;
 
 
-@Slf4j
 @ComputeEngineSide
 @ExtensionPoint
 public class AmazonSNSClientProxy implements Supplier<AmazonSNS> {
+    private static final Logger LOGGER = Loggers.get(AmazonSNSClientProxy.class);
     private final Configuration configuration;
     private final AWSCredentialsProvider awsCredentialsProvider;
 
@@ -50,7 +51,7 @@ public class AmazonSNSClientProxy implements Supplier<AmazonSNS> {
     }
 
     private AmazonSNS createSNSClient() {
-        log.debug("Creating SNS client");
+        LOGGER.debug("Creating SNS client");
 
         final AmazonSNSClientBuilder snsBuilder = AmazonSNSClientBuilder.standard().withCredentials(awsCredentialsProvider);
 

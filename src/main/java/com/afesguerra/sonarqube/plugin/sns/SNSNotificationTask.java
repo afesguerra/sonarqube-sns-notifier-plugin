@@ -7,18 +7,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import lombok.extern.slf4j.Slf4j;
 import org.sonar.api.ce.posttask.PostProjectAnalysisTask;
 import org.sonar.api.ce.posttask.QualityGate;
 import org.sonar.api.config.Configuration;
+import org.sonar.api.utils.log.Logger;
+import org.sonar.api.utils.log.Loggers;
 
 import java.io.UncheckedIOException;
 import java.util.function.Supplier;
 
 import static com.afesguerra.sonarqube.plugin.sns.SNSNotificationPlugin.AWS_SNS_TOPIC_ARN_KEY;
 
-@Slf4j
 public class SNSNotificationTask implements PostProjectAnalysisTask {
+    private static final Logger LOGGER = Loggers.get(SNSNotificationTask.class);
+
     private static final ObjectMapper OBJECT_MAPPER;
 
     private final Configuration configuration;
@@ -48,7 +50,7 @@ public class SNSNotificationTask implements PostProjectAnalysisTask {
         final String msg = getNotificationMessage(projectAnalysis);
         final AmazonSNS sns = amazonSNSSupplier.get();
 
-        log.info("Publishing message {}", msg);
+        LOGGER.info("Publishing message {}", msg);
         sns.publish(topicArn, msg);
     }
 
