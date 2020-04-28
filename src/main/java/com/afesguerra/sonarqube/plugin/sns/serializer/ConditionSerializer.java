@@ -12,8 +12,6 @@ public class ConditionSerializer extends StdSerializer<QualityGate.Condition> {
     private static final String METRIC_KEY_KEY = "metricKey";
     private static final String OPERATOR_KEY = "operator";
     private static final String ERROR_THRESHOLD_KEY = "errorThreshold";
-    private static final String WARNING_THRESHOLD_KEY = "warningThreshold";
-    private static final String LEAK_PERIOD_KEY = "leakPeriod";
     private static final String VALUE_KEY = "value";
 
     public ConditionSerializer() {
@@ -30,16 +28,12 @@ public class ConditionSerializer extends StdSerializer<QualityGate.Condition> {
         final String metricKey = condition.getMetricKey();
         final QualityGate.Operator operator = condition.getOperator();
         final String errorThreshold = condition.getErrorThreshold();
-        final String warningThreshold = condition.getWarningThreshold();
-        final boolean onLeakPeriod = condition.isOnLeakPeriod();
 
         gen.writeStartObject();
         gen.writeObjectField(STATUS_KEY, status);
         gen.writeObjectField(METRIC_KEY_KEY, metricKey);
         gen.writeObjectField(OPERATOR_KEY, operator);
         gen.writeObjectField(ERROR_THRESHOLD_KEY, errorThreshold);
-        gen.writeObjectField(WARNING_THRESHOLD_KEY, warningThreshold);
-        gen.writeBooleanField(LEAK_PERIOD_KEY, onLeakPeriod);
 
         if (!QualityGate.EvaluationStatus.NO_VALUE.equals(status)) {
             gen.writeObjectField(VALUE_KEY, condition.getValue());

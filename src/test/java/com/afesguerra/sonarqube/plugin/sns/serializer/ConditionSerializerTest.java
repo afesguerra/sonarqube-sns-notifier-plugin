@@ -18,9 +18,7 @@ import static org.mockito.Mockito.when;
 public class ConditionSerializerTest {
 
     private static final String METRIC_KEY = "LineCoverage";
-    private static final String WARNING_THRESHOLD = "75";
     private static final String ERROR_THRESHOLD = "70";
-    private static final boolean ON_LEAK_PERIOD = true;
     private static final String VALUE = "80";
 
     @Mock
@@ -40,9 +38,7 @@ public class ConditionSerializerTest {
         when(condition.getStatus()).thenReturn(QualityGate.EvaluationStatus.OK);
         when(condition.getMetricKey()).thenReturn(METRIC_KEY);
         when(condition.getOperator()).thenReturn(QualityGate.Operator.LESS_THAN);
-        when(condition.getWarningThreshold()).thenReturn(WARNING_THRESHOLD);
         when(condition.getErrorThreshold()).thenReturn(ERROR_THRESHOLD);
-        when(condition.isOnLeakPeriod()).thenReturn(ON_LEAK_PERIOD);
     }
 
     @Test
