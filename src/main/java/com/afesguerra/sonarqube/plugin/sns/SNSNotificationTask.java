@@ -40,14 +40,14 @@ public class SNSNotificationTask implements PostProjectAnalysisTask {
     }
 
     @Override
-    public void finished(ProjectAnalysis projectAnalysis) {
+    public void finished(PostProjectAnalysisTask.Context context) {
         final String topicArn = configuration.get(AWS_SNS_TOPIC_ARN_KEY)
                 .orElseThrow(() -> {
                     final String message = String.format("Must define property %s", AWS_SNS_TOPIC_ARN_KEY);
                     return new RuntimeException(message);
                 });
 
-        final String msg = getNotificationMessage(projectAnalysis);
+        final String msg = getNotificationMessage(context.getProjectAnalysis());
         final AmazonSNS sns = amazonSNSSupplier.get();
 
         LOGGER.info("Publishing message {}", msg);
