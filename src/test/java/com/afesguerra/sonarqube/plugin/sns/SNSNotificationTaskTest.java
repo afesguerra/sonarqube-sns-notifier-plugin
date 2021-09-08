@@ -66,7 +66,7 @@ class SNSNotificationTaskTest {
                 .withBranch(newBranchBuilder()
                         .setName("master")
                         .setIsMain(true)
-                        .setType(Branch.Type.BRANCH)
+                        .setType(Branch.Type.LONG)
                         .build())
                 .withQualityGate(newQualityGateBuilder()
                         .setId("id")
