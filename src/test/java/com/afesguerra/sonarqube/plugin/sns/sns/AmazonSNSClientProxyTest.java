@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AmazonSNSClientProxyTest {
+class AmazonSNSClientProxyTest {
 
     private static final String AWS_REGION = "eu-west-1";
 
@@ -34,14 +34,14 @@ public class AmazonSNSClientProxyTest {
     }
 
     @Test
-    public void isSingleton() {
+    void isSingleton() {
         when(configuration.get(AWS_SNS_REGION_KEY)).thenReturn(Optional.of(AWS_REGION));
         when(configuration.get(AWS_SNS_ENDPOINT_KEY)).thenReturn(Optional.empty());
 
         final AmazonSNS sns1 = proxy.get();
         final AmazonSNS sns2 = proxy.get();
 
-        assertThat(sns1 == sns2).isTrue();
+        assertThat(sns1).isSameAs(sns2);
     }
 
 }

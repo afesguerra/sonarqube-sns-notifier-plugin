@@ -28,7 +28,7 @@ import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newProject
 import static org.sonar.api.ce.posttask.PostProjectAnalysisTaskTester.newQualityGateBuilder;
 
 @ExtendWith(MockitoExtension.class)
-public class SNSNotificationTaskTest {
+class SNSNotificationTaskTest {
 
     private static final String TOPIC = "topic";
     private SNSNotificationTask task;
@@ -50,7 +50,7 @@ public class SNSNotificationTaskTest {
     }
 
     @Test
-    public void testSNSNotificationTask() {
+    void testSNSNotificationTask() {
         PostProjectAnalysisTaskTester.of(task)
                 .withCeTask(newCeTaskBuilder()
                         .setId("id")

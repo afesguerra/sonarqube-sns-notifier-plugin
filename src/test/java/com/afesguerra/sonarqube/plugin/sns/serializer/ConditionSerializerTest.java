@@ -15,7 +15,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ConditionSerializerTest {
+class ConditionSerializerTest {
 
     private static final String METRIC_KEY = "LineCoverage";
     private static final String ERROR_THRESHOLD = "70";
@@ -42,7 +42,7 @@ public class ConditionSerializerTest {
     }
 
     @Test
-    public void testSerializeNoValue() throws Exception {
+    void testSerializeNoValue() throws Exception {
         when(condition.getStatus()).thenReturn(QualityGate.EvaluationStatus.NO_VALUE);
         serializer.serialize(condition, gen, serializerProvider);
 
@@ -50,7 +50,7 @@ public class ConditionSerializerTest {
     }
 
     @Test
-    public void testWithValue() throws Exception {
+    void testWithValue() throws Exception {
         when(condition.getValue()).thenReturn(VALUE);
         serializer.serialize(condition, gen, serializerProvider);
         verify(condition).getValue();

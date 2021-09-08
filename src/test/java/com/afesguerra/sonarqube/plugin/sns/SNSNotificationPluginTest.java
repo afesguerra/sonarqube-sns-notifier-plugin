@@ -11,12 +11,12 @@ import org.sonar.api.utils.Version;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class SNSNotificationPluginTest {
+class SNSNotificationPluginTest {
 
     private final Plugin plugin = new SNSNotificationPlugin();
 
     @Test
-    public void testDefine() {
+    void testDefine() {
         Version version = Version.create(7, 9);
         SonarRuntime runtime = SonarRuntimeImpl.forSonarQube(version, SonarQubeSide.COMPUTE_ENGINE, SonarEdition.COMMUNITY);
         Plugin.Context context = new Plugin.Context(runtime);
