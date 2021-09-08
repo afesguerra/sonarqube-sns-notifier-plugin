@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SNSNotificationPluginTest {
 
-    private Plugin plugin = new SNSNotificationPlugin();
+    private final Plugin plugin = new SNSNotificationPlugin();
 
     @Test
     public void testDefine() {

@@ -76,8 +76,6 @@ public class SNSNotificationTaskTest {
                                 .setMetricKey("coverage")
                                 .setOperator(QualityGate.Operator.GREATER_THAN)
                                 .setErrorThreshold("12")
-                                .setOnLeakPeriod(true)
-                                .setWarningThreshold("13")
                                 .build(QualityGate.EvaluationStatus.OK, "35"))
                         .build())
                 .execute();
